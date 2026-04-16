@@ -1,0 +1,23 @@
+[project]
+name = "repo2nb"
+version = "0.1.0"
+description = "CLI tool to convert a local code repository into a Jupyter notebook for Kaggle"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "click",
+    "nbformat",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+repo2nb = "repo2nb.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.15.10",
+]
