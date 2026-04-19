@@ -1,6 +1,6 @@
 [project]
 name = "repo2nb"
-version = "0.1.0"
+version = "0.1.1"
 description = "Convert a local code repository into a Kaggle-ready Jupyter notebook"
 readme = "README.md"
 license = { text = "MIT" }
