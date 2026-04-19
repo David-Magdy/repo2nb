@@ -25,7 +25,7 @@ pip install repo2nb
 
 ```bash
 # Convert your local project to a Kaggle notebook
-repo2nb ./my_project --output my_project_kaggle.ipynb
+python -m repo2nb ./my_project --output my_project_kaggle.ipynb
 ```
 
 Then literally just upload the resulting `.ipynb` file to Kaggle!
