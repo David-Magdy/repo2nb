@@ -35,7 +35,16 @@ def get_git_cells(repo_path: pathlib.Path, omit_instructions: bool = False):
         setup_md_text = (
             "# 🛠️ Phase 1: Git Authentication & Setup\n"
             "---\n"
-            "Fill in your credentials.\n\n"
+            "## 🔑 GitHub Token Setup\n\n"
+            "Before running this cell:\n"
+            "1. In Kaggle, go to **Add-ons → Secrets** in the top menu\n"
+            "2. Click **Add a new secret**\n"
+            "3. Name it exactly: `GITHUB_TOKEN`\n"
+            "4. Paste your GitHub **fine-grained personal access token** as the value\n"
+            "   - Scope it to your repo only with **Contents: Read and Write** permission\n"
+            "5. Enable the secret for this notebook by toggling it on\n"
+            "6. Then run this cell — your token will never appear in any output\n\n"
+            "---\n"
             "**Working on a different branch?** Change `main` to your target branch name in the `git pull` and `git push` cells below."
         )
     setup_md = nbf.new_markdown_cell(setup_md_text)
@@ -43,7 +52,21 @@ def get_git_cells(repo_path: pathlib.Path, omit_instructions: bool = False):
     config_code = '!git config --global user.name "YOUR NAME"\n!git config --global user.email "YOUR EMAIL"'
     config_cell = nbf.new_code_cell(config_code)
     
-    remote_code = f'%%bash\ngit init\ngit branch -m main\ngit remote add origin "https://YOUR_TOKEN@github.com/{remote_suffix}" 2>/dev/null || git remote set-url origin "https://YOUR_TOKEN@github.com/{remote_suffix}"'
+    remote_code = (
+        'from kaggle_secrets import UserSecretsClient\n'
+        'import subprocess\n'
+        'import os\n\n'
+        '# Fetch your Kaggle Secret (relies on Kaggle Secrets instead of raw YOUR_TOKEN)\n'
+        'token = UserSecretsClient().get_secret("GITHUB_TOKEN")\n'
+        f'remote_url = f"https://{{token}}@github.com/{remote_suffix}"\n\n'
+        'subprocess.run(["git", "init"], check=True)\n'
+        'subprocess.run(["git", "branch", "-m", "main"], check=True)\n\n'
+        'try:\n'
+        '    subprocess.run(["git", "remote", "add", "origin", remote_url], check=True, stderr=subprocess.DEVNULL)\n'
+        'except subprocess.CalledProcessError:\n'
+        '    subprocess.run(["git", "remote", "set-url", "origin", remote_url], check=True)\n\n'
+        'print("Remote URL configured successfully. Token was not printed for security.")'
+    )
     remote_cell = nbf.new_code_cell(remote_code)
     
     pull_code = '# Change "main" to your branch name if needed\n!git pull origin main'

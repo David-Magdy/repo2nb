@@ -48,7 +48,7 @@ Then literally just upload the resulting `.ipynb` file to Kaggle!
 ## Important Conventions & Security
 
 **Security & Publishing:**
-The generated notebook contains a prompt to hook up your GitHub personal access token so you can sync edits back. **If you plan to make this notebook public, DO NOT hardcode your GitHub token!** Use **Kaggle Secrets** instead. Additionally, ensure that Kaggle's `.virtual_documents` directory is added to your `.gitignore` before pushing any changes to avoid leaking Kaggle's system files into your repo.
+`repo2nb` uses Kaggle's native secrets manager to inject your GitHub token at runtime. Your token is never hardcoded, never visible in cell output, and the notebook remains safe to share publicly. Additionally, ensure that Kaggle's `.virtual_documents` directory is added to your `.gitignore` before pushing any changes to avoid leaking Kaggle's system files into your repo.
 
 **Run All Only Once:**
 When you first start your Kaggle session, use **"Run All"** to bootstrap the directory structure and recreate the files.
