@@ -1,8 +1,9 @@
 [project]
 name = "repo2nb"
 version = "0.1.0"
-description = "CLI tool to convert a local code repository into a Jupyter notebook for Kaggle"
+description = "Convert a local code repository into a Kaggle-ready Jupyter notebook"
 readme = "README.md"
+license = { text = "MIT" }
 requires-python = ">=3.8"
 dependencies = [
     "click",
