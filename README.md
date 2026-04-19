@@ -34,6 +34,8 @@ Then literally just upload the resulting `.ipynb` file to Kaggle!
 
 - `--output`, `-o`: Specify the output notebook path. Defaults to `<folder_name>.ipynb`.
 - `--omit-instructions`: Omits the beginner-friendly warning cells and instructional git cheat sheets. Perfect for power users who already know the setup routine.
+- `--ignore-extra`: Provide extra file extensions to ignore entirely (e.g., `--ignore-extra ".yaml .json"`). These files will be completely omitted from the generated notebook.
+- `--include`: Force include specific file extensions that are usually skipped as binary/data (e.g., `--include ".csv .json"`).
 
 ## Features
 

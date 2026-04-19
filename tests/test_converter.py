@@ -33,10 +33,15 @@ def test_converter_no_git(tmp_path):
 def test_converter_depth(tmp_path):
     repo_path = tmp_path / "my_project"
     repo_path.mkdir()
+    (repo_path / "test0.py").touch()
+    
     sub_dir = repo_path / "level1"
     sub_dir.mkdir()
+    (sub_dir / "test1.py").touch()
+    
     sub_sub_dir = sub_dir / "level2"
     sub_sub_dir.mkdir()
+    (sub_sub_dir / "test2.py").touch()
     
     output_path = tmp_path / "out.ipynb"
     convert(repo_path, output_path)

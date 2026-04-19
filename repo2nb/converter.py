@@ -5,14 +5,20 @@ from .warnings import get_warning_cells
 from .git import get_git_cells
 from .notebook import make_markdown_cell, make_writefile_cell, assemble_notebook
 
-def _is_binary(file_path: pathlib.Path) -> bool:
+def _is_binary(file_path: pathlib.Path, include: set = None) -> bool:
     binary_extensions = {
         '.pkl', '.pt', '.h5', '.png', '.jpg', '.jpeg', '.gif', '.zip', '.tar', '.gz',
-        '.csv', '.tsv', '.xlsx', '.xls', '.parquet', '.db', '.sqlite'
+        '.csv', '.tsv', '.xlsx', '.xls', '.parquet', '.db', '.sqlite', '.pdf', '.ipynb', 
     }
+    if include:
+        include_exts = {ext.lower() if ext.startswith('.') else '.' + ext.lower() for ext in include}
+        binary_extensions = binary_extensions - include_exts
     return file_path.suffix.lower() in binary_extensions
 
-def convert(repo_path: pathlib.Path, output_path: pathlib.Path, omit_instructions: bool = False):
+def convert(repo_path: pathlib.Path, output_path: pathlib.Path, omit_instructions: bool = False, ignore_extra: set = None, include: set = None):
+    ignore_extra = ignore_extra or set()
+    ignore_exts = {ext.lower() if ext.startswith('.') else '.' + ext.lower() for ext in ignore_extra}
+    
     tree, has_git = traverse(repo_path)
     
     cells = []
@@ -37,6 +43,11 @@ def convert(repo_path: pathlib.Path, output_path: pathlib.Path, omit_instruction
     repo_name = repo_path.name
 
     for dir_path, files in tree:
+        valid_files = [f for f in files if f.suffix.lower() not in ignore_exts]
+        if not valid_files:
+            continue
+            
+
         if dir_path == repo_path:
             depth = 0
             folder_name = repo_name
@@ -59,7 +70,7 @@ def convert(repo_path: pathlib.Path, output_path: pathlib.Path, omit_instruction
             
         cells.append(make_markdown_cell(f"{header_level} 📁 {folder_name}"))
         
-        for file_path in files:
+        for file_path in valid_files:
             try:
                 rel_file_path = file_path.relative_to(repo_path)
             except ValueError:
@@ -67,7 +78,7 @@ def convert(repo_path: pathlib.Path, output_path: pathlib.Path, omit_instruction
                 
             kag_path = rel_file_path.as_posix()
             
-            if _is_binary(file_path):
+            if _is_binary(file_path, include):
                 cells.append(make_markdown_cell(f"**Skipped data/binary file**: `{kag_path}`\n*(Upload manually if needed)*"))
                 continue
                 
