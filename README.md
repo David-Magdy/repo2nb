@@ -55,4 +55,25 @@ When you first start your Kaggle session, use **"Run All"** to bootstrap the dir
 **After the initial setup, run cells individually as needed.** Using "Run All" again may overwrite any local manual code changes you have made that session!
 
 **Branch Management:**
-The notebook's git hooks default to `main`. The generated code blocks remind you to swap `"main"` for your target branch name if you are pulling or committing to a different branch.
+The notebook's git hooks default to `main`. The generated code blocks remind you to swap `"main"` for your target branch name if you are pulling or committing to a different branch.  
+
+## Video Tutorial
+[![repo2nb demo](https://img.youtube.com/vi/B8hVJY7YLzE/maxresdefault.jpg)](https://youtu.be/B8hVJY7YLzE)  
+ 
+
+## Reporting Issues
+
+Found a bug or have a feature request? Please open an issue on the [GitHub Issues page](https://github.com/David-Magdy/repo2nb/issues).
+
+### Before opening an issue
+- Check if the issue has already been reported
+- Make sure you are on the latest version: `pip install --upgrade repo2nb`
+
+### When reporting a bug, please include
+- Your operating system and Python version
+- The command you ran
+- The full error message or unexpected output
+- A minimal example of the repo structure that triggered the issue if possible
+
+### Feature requests
+Feature requests are welcome. Describe the use case you have in mind and why the current tool doesn't cover it, the more specific the better.
