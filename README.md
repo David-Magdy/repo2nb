@@ -1,6 +1,6 @@
 # repo2nb
 
-![repo2nb](logo.png)
+![repo2nb](Logo.png)
 
 repo2nb is an open-source Python CLI tool that converts a local code repository into a self-contained Jupyter notebook (`.ipynb`) designed natively to run on Kaggle's free GPU environment. 
 
