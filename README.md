@@ -4,7 +4,8 @@
 
 repo2nb is an open-source Python CLI tool that converts a local code repository into a self-contained Jupyter notebook (`.ipynb`) designed natively to run on Kaggle's free GPU environment. 
 
-It reconstructs your entire repo in Kaggle's `/kaggle/working` directory using Python's `%%writefile` magic cells, and integrates git for version control so you can pull, test, and push fixes back to your remote repository without ever leaving the Kaggle interface.
+## Video Tutorial
+### [repo2nb Quick Start Guide](https://youtu.be/alpcOEds54c) 
 
 ## Motivation
 *This is a tool I made for personal use first, then I wanted to publish it.*
@@ -13,7 +14,8 @@ My motivation was that I wanted to securely run a training repo on Kaggle, but i
 
 I used to do workarounds like uploading the repo as a dataset and starting from there. It was exhausting and wasted a couple of minutes just to realize I missed an indented line! Attempting the same flow manually using git for authenticating myself, pushing, and pulling for simple microscopic changes, which was equally painful. `repo2nb` automates all of this seamlessly.
 
-**Heads Up:** This project is intended for personal and academic projects. It is specifically designed for students and hobbyists like myself who want to quickly leverage free GPU compute without friction, rather than managing massive corporate repositories with hundreds of nested files!
+> [!NOTE]
+> This project is intended for personal and academic projects. It is specifically designed for students and hobbyists like myself who want to quickly leverage free GPU compute without friction, rather than managing massive corporate repositories with hundreds of nested files!
 
 ## Installation
 
@@ -56,11 +58,7 @@ When you first start your Kaggle session, use **"Run All"** to bootstrap the dir
 
 **Branch Management:**
 The notebook's git hooks default to `main`. The generated code blocks remind you to swap `"main"` for your target branch name if you are pulling or committing to a different branch.  
-
-## Video Tutorial
-[![repo2nb demo](https://img.youtube.com/vi/B8hVJY7YLzE/maxresdefault.jpg)](https://youtu.be/B8hVJY7YLzE)  
  
-
 ## Reporting Issues
 
 Found a bug or have a feature request? Please open an issue on the [GitHub Issues page](https://github.com/David-Magdy/repo2nb/issues).
