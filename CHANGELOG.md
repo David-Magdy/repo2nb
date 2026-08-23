@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.1 — 2026-08-23
+
+Hot-fix release on top of 0.2.0.
+
+### Fixed
+- **`reverse` hardened against symlink-based path traversal.** Each write target is now canonicalized against the real filesystem at write time and rejected if it resolves outside the destination root — including escapes through a symlinked subdirectory or file planted inside `--output` (previously reachable under `--force`). Symlink loops are skipped gracefully with a warning instead of crashing. Regression-tested for all three cases.
+
+### Changed
+- Project renamed to **repo2nb CLI** (PyPI package and repo name unchanged).
+- Documentation reorganized: README is now a quick-start overview; full command details moved to `TUTORIAL.md`, plus new `CONTRIBUTING.md`, `SECURITY.md`, and `SUPPORT.md`.
+- README badges added: license, release, Made-with-Python, PyPI downloads/month.
+
 ## 0.2.0
 
 Seven features, all backward-compatible with the existing `python -m repo2nb ./my_project` invocation.
@@ -14,7 +26,6 @@ Seven features, all backward-compatible with the existing `python -m repo2nb ./m
 - Every generated file cell is now tagged in cell metadata (`repo2nb.path` / `hash` / `generated_by`), the foundation for reverse and sync.
 
 ### Changed
-- Documentation reorganized: README is now a quick-start overview; full command details moved to `TUTORIAL.md`, plus new `CONTRIBUTING.md`, `SECURITY.md`, and `SUPPORT.md`.
 - The in-notebook security/gitignore warning cell has been **removed**; `.gitignore` updates (`.virtual_documents/`, `.repo2nb/`) now happen automatically at generation time and are logged to the terminal instead.
 - Generation writes `.repo2nb/manifest.json` for sync and auto-adds it to `.gitignore`, along with the target platform's system directories (`.virtual_documents/` for Kaggle, `sample_data/` for Colab).
 - Minimum Python version bumped to 3.10 (uses `sys.stdlib_module_names`).

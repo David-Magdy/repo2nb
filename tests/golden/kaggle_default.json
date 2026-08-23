@@ -60,7 +60,7 @@
       "execution_count": null,
       "metadata": {
         "repo2nb": {
-          "generated_by": "0.2.0",
+          "generated_by": "0.2.1",
           "hash": "sha256:278005044789c7f371cf960850c3c71ca70fe01db651ea7f5c0f16223615ecd2",
           "path": ".gitignore"
         }
@@ -84,7 +84,7 @@
       "execution_count": null,
       "metadata": {
         "repo2nb": {
-          "generated_by": "0.2.0",
+          "generated_by": "0.2.1",
           "hash": "sha256:b413f47d13ee2fe6c845b2ee141af81de858df4ec549a58b7970bb96645bc8d2",
           "path": "data.bin"
         }
@@ -107,7 +107,7 @@
       "execution_count": null,
       "metadata": {
         "repo2nb": {
-          "generated_by": "0.2.0",
+          "generated_by": "0.2.1",
           "hash": "sha256:d129982bbd53afc38f237f7d42156f9072da04684f3bb535b04a7bb143d73715",
           "path": "main.py"
         }
@@ -133,7 +133,7 @@
       "execution_count": null,
       "metadata": {
         "repo2nb": {
-          "generated_by": "0.2.0",
+          "generated_by": "0.2.1",
           "hash": "sha256:95000871ea7c39c6d6a3b3ed3fcb344a8cf35625e614878e49026e4bcd870985",
           "path": "requirements.txt"
         }
@@ -164,7 +164,7 @@
       "execution_count": null,
       "metadata": {
         "repo2nb": {
-          "generated_by": "0.2.0",
+          "generated_by": "0.2.1",
           "hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "path": "pkg/__init__.py"
         }
@@ -186,7 +186,7 @@
       "execution_count": null,
       "metadata": {
         "repo2nb": {
-          "generated_by": "0.2.0",
+          "generated_by": "0.2.1",
           "hash": "sha256:abb97217d439c54ac2e25a9d8e6a9386faf41c8bb564b1b7517aa9b1c6ed65ee",
           "path": "pkg/helper.py"
         }
@@ -202,7 +202,7 @@
   "metadata": {
     "repo2nb": {
       "target": "kaggle",
-      "version": "0.2.0"
+      "version": "0.2.1"
     }
   },
   "nbformat": 4,

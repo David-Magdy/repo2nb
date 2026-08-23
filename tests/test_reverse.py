@@ -1,3 +1,4 @@
+import os
 import pathlib
 
 import nbformat
@@ -7,6 +8,11 @@ import pytest
 from repo2nb.converter import convert
 from repo2nb.notebook import make_writefile_cell
 from repo2nb.reverse import reverse
+
+
+def _write_nb(nb, path):
+    with open(path, "w") as f:
+        nbformat.write(nb, f)
 
 
 def _make_deep_repo(tmp_path):
@@ -130,3 +136,61 @@ def test_reverse_default_output_dir(tmp_path, monkeypatch):
     main(["reverse", str(tmp_path / "mybook.ipynb")])
 
     assert (pathlib.Path("mybook") / "top.py").exists()
+
+
+def test_reverse_symlinked_subdir_escape_rejected_with_force(tmp_path):
+    """Regression: --force must not follow a symlinked subdir resolving outside --output."""
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    secret = outside / "secret.txt"
+    secret.write_text("SECRET", encoding="utf-8")
+
+    dest = tmp_path / "dest"
+    dest.mkdir()
+    os.symlink(outside, dest / "pkg")
+
+    nb = nbf.new_notebook()
+    nb.cells = [make_writefile_cell("pkg/secret.txt", "PWNED")]
+    nb_path = tmp_path / "evil.ipynb"
+    _write_nb(nb, nb_path)
+
+    reverse(nb_path, dest, force=True)
+
+    assert secret.read_text(encoding="utf-8") == "SECRET"
+    assert list(outside.iterdir()) == [secret]
+
+
+def test_reverse_symlinked_file_escape_rejected(tmp_path):
+    """A file-level symlink inside --output pointing outside is not overwritten."""
+    target = tmp_path / "target_id_rsa"
+    target.write_text("PRIVATE KEY", encoding="utf-8")
+
+    dest = tmp_path / "dest"
+    dest.mkdir()
+    os.symlink(target, dest / "top.py")
+
+    nb = nbf.new_notebook()
+    nb.cells = [make_writefile_cell("top.py", "PWNED")]
+    nb_path = tmp_path / "evil.ipynb"
+    _write_nb(nb, nb_path)
+
+    reverse(nb_path, dest, force=True)
+
+    assert target.read_text(encoding="utf-8") == "PRIVATE KEY"
+
+
+def test_reverse_symlink_loop_skipped_not_crash(tmp_path):
+    dest = tmp_path / "dest"
+    dest.mkdir()
+    os.symlink(dest / "b", dest / "a")  # a -> b -> a: unresolvable cycle
+    os.symlink(dest / "a", dest / "b")
+
+    nb = nbf.new_notebook()
+    nb.cells = [make_writefile_cell("a/x.py", "content")]
+    nb_path = tmp_path / "nb.ipynb"
+    _write_nb(nb, nb_path)
+
+    reverse(nb_path, dest, force=True)  # must not raise
+
+    # nothing written through the broken cycle
+    assert not list(dest.glob("*/*.py"))

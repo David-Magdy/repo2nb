@@ -1,8 +1,14 @@
-# repo2nb
+# repo2nb CLI
 
 ![repo2nb](Logo.png)
 
-repo2nb is an open-source Python CLI tool that converts a local code repository into a self-contained Jupyter notebook (`.ipynb`) designed natively to run on Kaggle's free GPU environment — and now Google Colab too.
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Release](https://img.shields.io/github/v/release/David-Magdy/repo2nb?color=brightgreen)](https://github.com/David-Magdy/repo2nb/releases)
+[![Made with Python](https://img.shields.io/badge/Made%20with-Python-ffd43b?logo=python&logoColor=306998&labelColor=646464)](https://www.python.org/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/repo2nb.svg?color=f1632d)](https://pypi.org/project/repo2nb/)
+
+
+repo2nb CLI is an open-source Python CLI tool that converts a local code repository into a self-contained Jupyter notebook (`.ipynb`) designed natively to run on Kaggle's free GPU environment... and now Google Colab too.
 
 ## Video Tutorial
 ### [repo2nb Quick Start Guide](https://youtu.be/alpcOEds54c) 
